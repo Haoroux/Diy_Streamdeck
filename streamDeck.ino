@@ -1,8 +1,6 @@
-//this code does not work
+//The used librairies
 
 #include <Keyboard.h>
-
-//The used librairies
 
 //les pins des switchs
 const int ctrlCButtonPin = 2;
@@ -15,10 +13,7 @@ int ctrlVButtonState = 0;
 int modButtonState = 0;
 
 //selected mod
-int selectedMod = 0;
-int baseMod = 0;
-int firstMod = 1;
-int secondMod = 2;
+int modSelect = 0;
 
 void setup() 
 {
@@ -29,57 +24,62 @@ void setup()
 
 void loop() 
 {
-  modButtonState = !digitalRead(modButtonPin);
-  Serial.println(selectedMod);
+  ctrlCButtonState = !digitalRead(ctrlCButtonPin);
+  ctrlVButtonState = !digitalRead(ctrlVButtonPin); 
+  modButtonState = !digitalRead(modButtonPin); 
+  
 
   if (modButtonState == 1)
   {
-    selectedModFunc();
+    modSelect = modSelect + 1;
+    delay(400);
+    Serial.println(modSelect);
   }
+  //for profile1
+  if (modSelect == 0)
+  {
+    //control V
+    if (ctrlVButtonState == 1)
+    {
+      ctrlVFunc();
+    }
+
+    //control C
+    if (ctrlCButtonState == 1)
+    {
+      ctrlCFunc();
+    }
+  }
+
+  //for profile2
+  if (modSelect == 1)
+  {
+    //control V
+    if (ctrlVButtonState == 1)
+    {
+      windowsDfunc();
+    }
+
+    //control C
+    if (ctrlCButtonState == 1)
+    {
+      ctrlZFunc();
+    }
   
-  if (selectedMod == 1)
+  }
+  if (modSelect == 2)
   {
-    mod1();
+    modSelect = modSelect + 1;
   }
 }
 
-int selectedModFunc()
-{
-  if (selectedMod == 0)
-  {
-    int selectedMod = firstMod;
-    delay(500);
-  }
-  if (selectedMod == 1)
-  {
-    int selectedMod = baseMod;
-    delay(500);
-  }
-}
-
-void mod1()
-{
-  ctrlCButtonState = !digitalRead(ctrlCButtonPin);
-  ctrlVButtonState = !digitalRead(ctrlVButtonPin);  
-  //control V
-  if (ctrlVButtonState == 1)
-  {
-    ctrlVFunc();
-  }
-
-//control C
-  if (ctrlCButtonState == 1)
-  {
-    ctrlCFunc();
-  }
-}
-
+//profile1
 void ctrlCFunc()
 {
   Keyboard.press(KEY_LEFT_CTRL);
   Keyboard.print("c");
   Keyboard.releaseAll();
-  delay(500);
+  delay(400);
   return(0);
 }
 
@@ -88,8 +88,25 @@ void ctrlVFunc()
   Keyboard.press(KEY_LEFT_CTRL);
   Keyboard.print("v");
   Keyboard.releaseAll();
-  delay(500);
+  delay(400);
   return(0);
 }
 
-//
+//profile 2
+void windowsDfunc()
+{
+  Keyboard.press(KEY_RIGHT_GUI);
+  Keyboard.print("d");
+  Keyboard.releaseAll();
+  delay(400);
+  return(0);
+}
+
+void ctrlZFunc()
+{
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.print("z");
+  Keyboard.releaseAll();
+  delay(400);
+  return(0);
+}
