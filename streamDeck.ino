@@ -69,7 +69,7 @@ void loop()
   }
   if (modSelect == 2)
   {
-    modSelect = modSelect + 1;
+    modSelect = 0;
   }
 }
 
