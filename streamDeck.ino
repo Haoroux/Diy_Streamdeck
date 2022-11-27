@@ -3,13 +3,13 @@
 #include <Keyboard.h>
 
 //les pins des switchs
-const int ctrlCButtonPin = 2;
-const int ctrlVButtonPin = 3;
+const int ButtonPin1 = 2;
+const int ButtonPin2 = 3;
 const int modButtonPin = 4;
 
 //états des switchs
-int ctrlCButtonState = 0;
-int ctrlVButtonState = 0;
+int ButtonState1 = 0;
+int ButtonState2 = 0;
 int modButtonState = 0;
 
 //selected mod
@@ -17,15 +17,15 @@ int modSelect = 0;
 
 void setup() 
 {
-  pinMode(ctrlCButtonPin, INPUT_PULLUP);
-  pinMode(ctrlVButtonPin, INPUT_PULLUP);
+  pinMode(ButtonPin1, INPUT_PULLUP);
+  pinMode(ButtonPin2, INPUT_PULLUP);
   pinMode(modButtonPin, INPUT_PULLUP);
 }
 
 void loop() 
 {
-  ctrlCButtonState = !digitalRead(ctrlCButtonPin);
-  ctrlVButtonState = !digitalRead(ctrlVButtonPin); 
+  ButtonState1 = !digitalRead(ButtonPin1);
+  ButtonState2 = !digitalRead(ButtonPin2); 
   modButtonState = !digitalRead(modButtonPin); 
   
 
@@ -39,29 +39,29 @@ void loop()
   if (modSelect == 0)
   {
     //control V
-    if (ctrlVButtonState == 1)
+    if (ButtonState2 == 1)
     {
       ctrlVFunc();
     }
 
     //control C
-    if (ctrlCButtonState == 1)
+    if (ButtonState1 == 1)
     {
       ctrlCFunc();
     }
   }
 
-  //for profile2
+  //for mod D
   if (modSelect == 1)
   {
     //control V
-    if (ctrlVButtonState == 1)
+    if (ButtonState2 == 1)
     {
       windowsDfunc();
     }
 
-    //control C
-    if (ctrlCButtonState == 1)
+    //control Z
+    if (ButtonState1 == 1)
     {
       ctrlZFunc();
     }
