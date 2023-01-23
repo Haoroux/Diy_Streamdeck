@@ -42,7 +42,7 @@ void loop()
 //profile1
 void ctrlCFunc()
 {
-  Keyboard.press("a");
+  Keyboard.press(97);
   Keyboard.releaseAll();
   delay(110);
   return(0);
@@ -50,7 +50,7 @@ void ctrlCFunc()
 
 void ctrlVFunc()
 {
-  Keyboard.press("s");
+  Keyboard.press(115);
   Keyboard.releaseAll();
   delay(110);
   return(0);
