@@ -20,6 +20,7 @@ void setup()
   pinMode(ButtonPin1, INPUT_PULLUP);
   pinMode(ButtonPin2, INPUT_PULLUP);
   pinMode(modButtonPin, INPUT_PULLUP);
+  Keyboard.begin();
 }
 
 void loop() 
