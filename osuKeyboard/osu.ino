@@ -42,37 +42,16 @@ void loop()
 //profile1
 void ctrlCFunc()
 {
-  Keyboard.press(KEY_LEFT_CTRL);
-  Keyboard.print("c");
+  Keyboard.press(KEY_A);
   Keyboard.releaseAll();
-  delay(400);
+  delay(110);
   return(0);
 }
 
 void ctrlVFunc()
 {
-  Keyboard.press(KEY_LEFT_CTRL);
-  Keyboard.print("v");
+  Keyboard.press(KEY_S);
   Keyboard.releaseAll();
-  delay(400);
-  return(0);
-}
-
-//profile 2
-void windowsDfunc()
-{
-  Keyboard.press(KEY_RIGHT_GUI);
-  Keyboard.print("d");
-  Keyboard.releaseAll();
-  delay(400);
-  return(0);
-}
-
-void ctrlZFunc()
-{
-  Keyboard.press(KEY_LEFT_CTRL);
-  Keyboard.print("z");
-  Keyboard.releaseAll();
-  delay(400);
+  delay(110);
   return(0);
 }
