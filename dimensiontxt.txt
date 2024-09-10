@@ -1,0 +1,5 @@
+dim
+l: 83mm
+L: 67.5mm
+h: 10mm
+postion usbc:
