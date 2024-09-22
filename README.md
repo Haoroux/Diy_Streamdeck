@@ -4,5 +4,5 @@ You can change the command easily modifiyng the keyMapping list
 
 
 ## Components
-  -switches:https://www.amazon.com.be/-/en/EPOMAKER-Keyboard-Switch-Purple-Lavender/dp/B097P391VF/ref=sr_1_1?crid=21I9UQ5255K47&keywords=interrupteurs+lavande&qid=1670168327&sprefix=lavender+swtiches%2Caps%2C96&sr=8-1  
-  -Arduino pro micro usb-c type
+  -[switches](https://www.banggood.com/30-or-60-Pcs-Holy-Panda-Switch-Mechanical-Keyboard-Tactile-Switch-3-Pin-55g-POM-Axis-Custom-Keyboard-Switches-Hot-Plug-DIY-GK61-TK75-p-1982819.html?cur_warehouse=CN&ID=6289798&rmmds=buy)  
+  -[Arduino pro micro]()  
