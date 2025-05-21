@@ -1,13 +1,10 @@
-//libs
 #include <Keyboard.h>
 
-//var
-//pins
 const int numBtns = 14;
 const int btnsPinsList[numBtns] = {1,0,2,3,4,5,6,7,8,9,10,16,14,15};
-int prevStates[numBtns];
+bool prevStates[numBtns];
 
-//shortcuts
+// Raccourcis pour chaque bouton
 struct KeyMapping {
   bool ctrl;
   bool shift;
@@ -16,7 +13,7 @@ struct KeyMapping {
   uint8_t fn;
   String command;
 };
-//ctrl(true/false), shift(true/false),win(true/false),alt(true/false),fn(0/KEY_Fnumber),command(txt/"")
+
 KeyMapping keyMapping[numBtns] = {
   {false,false,false,false,0,"0"},
   {false,false,false,false,0,"1"},
@@ -34,48 +31,53 @@ KeyMapping keyMapping[numBtns] = {
   {false,false,false,false,0,"13"}
 };
 
-//functions
 void setup() {
-  for(int i=0;i<numBtns; i++){
+  for (int i = 0; i < numBtns; i++) {
     pinMode(btnsPinsList[i], INPUT_PULLUP);
-    prevStates[i] = HIGH;
+    prevStates[i] = true;
   }
-
+  Keyboard.begin();
 }
 
 void loop() {
-  for(int i=0;i<numBtns; i++){
-    int curStates = digitalRead(btnsPinsList[i]);
-    // put your main code here, to run repeatedly:
-    if (prevStates[i] == HIGH && curStates == LOW){
-      shortCutsFunc(keyMapping[i]);
+  bool anyKeyPressed = false;
+
+  for (int i = 0; i < numBtns; i++) {
+    bool curState = digitalRead(btnsPinsList[i]);
+
+    if (curState == LOW && prevStates[i] == HIGH) {
+      sendKey(keyMapping[i], true); // press
     }
-    prevStates[i] = curStates;
+
+    if (curState == HIGH && prevStates[i] == LOW) {
+      sendKey(keyMapping[i], false); // release
+    }
+
+    prevStates[i] = curState;
+
+    if (curState == LOW) {
+      anyKeyPressed = true;
+    }
   }
 
+  if (!anyKeyPressed) {
+    Keyboard.releaseAll();
+  }
 }
 
-void shortCutsFunc(KeyMapping mapping){
-  if (mapping.ctrl == true){
-    Serial.println("control");
-    Keyboard.press(KEY_LEFT_CTRL);
+void sendKey(KeyMapping mapping, bool press) {
+  if (press) {
+    if (mapping.ctrl) Keyboard.press(KEY_LEFT_CTRL);
+    if (mapping.alt) Keyboard.press(KEY_LEFT_ALT);
+    if (mapping.win) Keyboard.press(KEY_LEFT_GUI);
+    if (mapping.shift) Keyboard.press(KEY_LEFT_SHIFT);
+    if (mapping.fn != 0) Keyboard.press(mapping.fn);
+    if (mapping.command != "") {
+      for (int i = 0; i < mapping.command.length(); i++) {
+        Keyboard.press(mapping.command[i]);
+      }
+    }
+  } else {
+    Keyboard.releaseAll(); // Relâche tout quand on détecte un relâchement
   }
-  if (mapping.alt == true){
-    Serial.println("alt");
-    Keyboard.press(KEY_LEFT_ALT);
-  }
-  if (mapping.win == true){
-    Serial.println("win");
-    Keyboard.press(KEY_LEFT_GUI);
-  }
-  if (mapping.shift == true){
-    Serial.println("shift");
-    Keyboard.press(KEY_LEFT_SHIFT);
-  }
-  if (mapping.fn != 0) {  // Si une touche spéciale est définie (comme KEY_F3)
-    Serial.println("funtion");
-    Keyboard.press(mapping.fn);
-  } 
-  Keyboard.print(mapping.command);  // Imprime la commande (par ex. "1")
-  Keyboard.releaseAll();
 }
